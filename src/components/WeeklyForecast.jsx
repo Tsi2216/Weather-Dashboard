@@ -1,6 +1,6 @@
 // src/components/WeeklyForecast.jsx
 import React, { useEffect, useState } from 'react';
-import { fetchWeeklyForecast } from '../weatherApi'; // Adjust the import based on where you placed the function
+import fetchWeatherData from '../services/weatherApi';
 
 const WeeklyForecast = ({ lat, lon }) => {
     const [forecast, setForecast] = useState([]);
