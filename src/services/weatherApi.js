@@ -1,8 +1,8 @@
 const fetchWeatherData = async (city, lang = 'en') => {
-  const apiKey = '80739f1d3215b28b19f3c4bdbc4c9bbd';
+  const apiKey = '016ee4a96e66c03351212404a2cf1b91';
   
   // Fetch current weather data to get latitude and longitude
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${80739f1d3215b28b19f3c4bdbc4c9bbd}&units=metric&lang=${lang}`);
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${016ee4a96e66c03351212404a2cf1b91}&units=metric&lang=${lang}`);
   
   if (!response.ok) throw new Error('City not found');
   
