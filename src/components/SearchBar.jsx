@@ -1,9 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const SearchBar = ({ onSearch }) => {
   const [city, setCity] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [recentSearches, setRecentSearches] = useState([]);
+
+  // Function to save recent searches to local storage
+  const saveRecentSearch = (city) => {
+    let searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    if (!searches.includes(city)) {
+      searches.push(city);
+      localStorage.setItem('recentSearches', JSON.stringify(searches));
+      setRecentSearches(searches); // Update state
+    }
+  };
+
+  // Function to load recent searches from local storage
+  const loadRecentSearches = () => {
+    const searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    setRecentSearches(searches);
+  };
+
+  // Load recent searches on component mount
+  useEffect(() => {
+    loadRecentSearches();
+  }, []);
 
   const handleSearch = async () => {
     if (!city.trim()) {
@@ -14,6 +36,7 @@ const SearchBar = ({ onSearch }) => {
     setIsLoading(true);
     try {
       await onSearch(city);
+      saveRecentSearch(city); // Save city to recent searches
     } catch (err) {
       setError('Failed to fetch weather data');
     } finally {
@@ -41,6 +64,16 @@ const SearchBar = ({ onSearch }) => {
         </button>
       </div>
       {error && <p className="text-red-500 mt-2">{error}</p>}
+      <div className="mt-4">
+        {recentSearches.length > 0 && <h3 className="font-semibold">Recent Searches:</h3>}
+        <ul className="list-disc pl-5">
+          {recentSearches.map((recentCity, index) => (
+            <li key={index} className="text-blue-600 cursor-pointer" onClick={() => { setCity(recentCity); onSearch(recentCity); }}>
+              {recentCity}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

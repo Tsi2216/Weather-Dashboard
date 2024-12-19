@@ -1,20 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
+import fetchWeatherData from '../services/weatherApi'; // Adjust the path as needed
+import WeatherCard from './WeatherCard'; // Adjust the path as needed
 
-const WeatherCard = ({ weather }) => {
-  return (
-    <div className="border rounded-lg shadow-lg p-4 bg-white max-w-sm mx-auto flex flex-col">
-      <h2 className="text-xl font-bold">{weather.name}</h2>
-      <p className="text-gray-700">Temperature: {weather.main.temp} °C</p>
-      <p className="text-gray-700">Humidity: {weather.main.humidity}%</p>
-      <p className="text-gray-700">Wind Speed: {weather.wind.speed} km/h</p>
-      <p className="text-gray-500 italic">{weather.weather.description}</p>
-      <img 
-        src={`http://openweathermap.org/img/wn/${weather.weather.icon}.png`} 
-        alt={weather.weather.description} 
-        className="mt-2 w-24 h-24 md:w-32 md:h-32 mx-auto"
-      />
-    </div>
-  );
+const WeatherComponent = () => {
+    const [city, setCity] = useState('');
+    const [currentWeather, setCurrentWeather] = useState(null);
+    const [forecast, setForecast] = useState([]);
+    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSearch = async () => {
+        if (!city.trim()) {
+            setError('Please enter a city name');
+            return;
+        }
+
+        setError('');
+        setIsLoading(true);
+        try {
+            const { currentWeather, forecast } = await fetchWeatherData(city);
+            setCurrentWeather(currentWeather);
+            setForecast(forecast);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+            setCity('');
+        }
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                placeholder="Enter city"
+            />
+            <button onClick={handleSearch} disabled={isLoading}>
+                {isLoading ? 'Loading...' : 'Search'}
+            </button>
+            {error && <p className="error">{error}</p>}
+            {currentWeather && forecast.length > 0 && (
+                <WeatherCard currentWeather={currentWeather} forecast={forecast} />
+            )}
+        </div>
+    );
 };
 
-export default WeatherCard;
+export default WeatherComponent;
