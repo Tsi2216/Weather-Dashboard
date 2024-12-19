@@ -2,7 +2,7 @@ const fetchWeatherData = async (city, lang = 'en') => {
   const apiKey = '016ee4a96e66c03351212404a2cf1b91';
   
   // Fetch current weather data to get latitude and longitude
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${016ee4a96e66c03351212404a2cf1b91}&units=metric&lang=${lang}`);
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=${lang}`);
   
   if (!response.ok) throw new Error('City not found');
   
@@ -23,7 +23,7 @@ const fetchWeatherData = async (city, lang = 'en') => {
       date: new Date(day.dt * 1000).toLocaleDateString(), // Format date
       high: day.temp.max,
       low: day.temp.min,
-      weather: day.weather.description, // Accessing the description correctly
+      weather: day.weather[0].description, // Accessing the description correctly
   }));
 
   // Return both current weather and formatted 7-day forecast
