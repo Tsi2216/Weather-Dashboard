@@ -2,14 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Arial', sans-serif; /* Changed font to Arial */
   line-height: 1.5;
   font-weight: 400;
-
-  /* Removed color-scheme as we are using classes */
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background-color: #242424; /* Fallback for dark theme */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,51 +16,90 @@
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: center; /* Center the container horizontally */
+  align-items: center; /* Center the container vertically */
   min-width: 320px;
   min-height: 100vh;
+  background: url('your-background-image-url.jpg') no-repeat center center fixed; /* Background image */
+  background-size: cover;
+  color: white; /* Default text color */
+}
+
+.container {
+  text-align: center;
+  padding: 50px 20px;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  border-radius: 10px;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 3.2em; /* Title size */
   line-height: 1.1;
+  color: #ff7f50; /* Coral color for title */
+  margin: 0; /* No margin for title */
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+.subtitle {
+  font-size: 1.5em; /* Subtitle size */
+  margin: 20px 0; /* Margin for subtitle */
 }
-button:hover {
-  border-color: #646cff;
+
+.search-container {
+  display: flex;
+  justify-content: center; /* Center search container */
+  margin: 20px 0;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+.search-input {
+  padding: 10px; /* Padding for input */
+  font-size: 1em; /* Font size for input */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  margin-right: 10px; /* Space between input and button */
+}
+
+.search-button {
+  padding: 10px 20px; /* Padding for button */
+  font-size: 1em; /* Font size for button */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #ff7f50; /* Coral color */
+  color: white; /* Text color */
+  cursor: pointer; /* Cursor pointer on hover */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.search-button:hover {
+  background-color: #ff4500; /* Darker coral on hover */
+}
+
+.options {
+  margin-top: 20px; /* Space above options */
+}
+
+.theme-toggle {
+  padding: 10px; /* Padding for toggle */
+  font-size: 1em; /* Font size for toggle */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
 }
 
 /* Light Theme */
 .light {
-  background-color: white;
-  color: black;
+  background-color: white; /* Light theme background */
+  color: black; /* Light theme text color */
 }
 
 .light a:hover {
-  color: #747bff;
+  color: #747bff; /* Light theme link hover color */
 }
 
 .light button {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; /* Light theme button background */
 }
 
 /* Dark Theme */
 .dark {
-  background-color: black;
-  color: white;
+  background-color: black; /* Dark theme background */
+  color: white; /* Dark theme text color */
 }

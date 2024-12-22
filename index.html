@@ -4,12 +4,28 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>OpenWeather Dashboard</title>
     <!-- Link to CSS file if needed -->
     <link rel="stylesheet" href="/src/index.css" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="container">
+        <h1 class="title">OpenWeather</h1>
+        <p class="subtitle">Weather forecasts, nowcasts and history in a fast and elegant way</p>
+        <div class="search-container">
+          <input type="text" placeholder="Enter city" class="search-input" />
+          <button class="search-button">Search</button>
+        </div>
+        <div class="options">
+          <select class="theme-toggle">
+            <option>Toggle Theme</option>
+            <option>Metric</option>
+            <option>Imperial</option>
+          </select>
+        </div>
+      </div>
+    </div>
     <!-- Correctly include the script with type="module" -->
     <script type="module" src="/src/main.jsx"></script>
     <!-- Optional: Fallback for older browsers -->
