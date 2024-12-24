@@ -16,7 +16,7 @@ const fetchWeatherData = async (city, lang = 'en') => {
     const { lat, lon } = currentWeather.coord;
 
     // Fetch 7-day weather forecast using latitude and longitude
-    const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=metric&lang=${lang}`);
+    const forecastResponse = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=metric&lang=${lang}`);
     
     if (!forecastResponse.ok) {
       const errorResponse = await forecastResponse.json();
