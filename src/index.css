@@ -73,9 +73,8 @@ p {
     background-color: #ffffff; /* Light background for visibility */
     width: 100%; /* Full width for controls */
     max-width: 600px; /* Limit width for readability */
-    border-top: 5px solid #1e90ff; /* Top border for separation */
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-    margin-top: -20px; /* Negative margin to pull controls closer to the background */
+    margin-top: 20px; /* Space between background and controls */
 }
 
 .search-container {
