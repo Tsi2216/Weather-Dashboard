@@ -13,6 +13,7 @@ const App = () => {
   const [language, setLanguage] = useState('en'); 
   const [theme, setTheme] = useState('light'); 
 
+  // Load theme and location on mount
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -21,10 +22,10 @@ const App = () => {
     getLocation(); 
   }, []);
 
+  // Fetch weather data again when the language changes
   useEffect(() => {
-    // Fetch weather data again when the language changes
     if (weather) {
-      fetchWeatherDataByCoords(weather.coord.lat, weather.coord.lon); // Use current weather coordinates
+      fetchWeatherDataByCoords(weather.coord.lat, weather.coord.lon);
     }
   }, [language]);
 
@@ -38,13 +39,11 @@ const App = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        fetchWeatherDataByCoords(latitude, longitude); // Fetch weather data using coordinates
+        fetchWeatherDataByCoords(latitude, longitude);
       }, 
       (error) => {
         setError('Unable to retrieve your location. Please try again.');
         console.error('Geolocation error:', error);
-        // Optionally, you can call fetchWeatherDataByCoords with hardcoded values for testing
-        // fetchWeatherDataByCoords(51.5074, -0.1278); // Example: London coordinates
       }
     );
   };
@@ -52,8 +51,7 @@ const App = () => {
   const fetchWeatherDataByCoords = async (latitude, longitude) => {
     setIsLoading(true);
     try {
-      console.log('Fetching weather data for:', { latitude, longitude });
-      const data = await fetchWeatherData({ lat: latitude, lon: longitude }, language); // Pass the selected language
+      const data = await fetchWeatherData({ lat: latitude, lon: longitude }, language); 
       setWeather(data.currentWeather); 
       setForecast(data.forecast); 
     } catch (err) {
@@ -72,8 +70,7 @@ const App = () => {
     setError('');
     setIsLoading(true);
     try {
-      console.log('Searching for city:', city);
-      const data = await fetchWeatherData(city, language); // Pass the selected language
+      const data = await fetchWeatherData(city, language); 
       setWeather(data.currentWeather); 
       setForecast(data.forecast); 
     } catch (err) {
@@ -89,9 +86,8 @@ const App = () => {
     setLanguage(newLanguage);
     setIsLoading(true);
     try {
-      console.log('Changing language to:', newLanguage);
       if (weather) {
-        const data = await fetchWeatherData(weather.name, newLanguage); // Use current city from weather state
+        const data = await fetchWeatherData(weather.name, newLanguage); 
         setWeather(data.currentWeather); 
         setForecast(data.forecast); 
       }
@@ -112,7 +108,7 @@ const App = () => {
       {isLoading && <p className="text-blue-500">Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
       {weather && <WeatherCard weather={weather} />}
-      {forecast.length > 0 && <WeeklyForecast forecast={forecast} />} {/* Display the weekly forecast */}
+      {forecast.length > 0 && <WeeklyForecast forecast={forecast} />}
     </div>
   );
 };
