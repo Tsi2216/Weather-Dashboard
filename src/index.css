@@ -2,106 +2,133 @@
 @tailwind components;
 @tailwind utilities;
 :root {
-  font-family: 'Arial', sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.87);
-  background-color: #f0f0f0; /* Light theme background */
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #f0f0f0; /* Light theme background */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  background: url('app.png') no-repeat center center fixed; /* Background image */
-  background-size: cover;
-  color: black; /* Default text color */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+    background: url('app.png') no-repeat center center fixed; /* Background image */
+    background-size: cover;
+    color: black; /* Default text color */
 }
 
-.container {
-  text-align: center;
-  padding: 50px 20px;
-  background: rgba(255, 255, 255, 0.8); /* Light overlay */
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+.background {
+    background-image: url('your-background-image.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Full height of the viewport */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left; /* Align text to the left */
+    color: white;
+    position: relative;
+}
+
+.content {
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for better text visibility */
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px; /* Limit width for readability */
 }
 
 h1 {
-  font-size: 3.2em; /* Title size */
-  line-height: 1.1;
-  color: #1e90ff; /* Dodger blue for title */
-  margin: 0; /* No margin for title */
+    font-size: 3.2em; /* Title size */
+    line-height: 1.1;
+    color: #1e90ff; /* Dodger blue for title */
+    margin: 0; /* No margin for title */
+    font-weight: bold; /* Make the title bold */
 }
 
 .subtitle {
-  font-size: 1.5em; /* Subtitle size */
-  margin: 20px 0; /* Margin for subtitle */
-  color: #555; /* Subtitle color */
+    font-size: 1.5em; /* Subtitle size */
+    margin: 20px 0; /* Margin for subtitle */
+    color: #555; /* Subtitle color */
+}
+
+p {
+    font-size: 1.2em; /* Adjust size as needed */
+    margin-top: 10px; /* Space between title and paragraph */
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* Space around the controls */
+    background-color: #f1f1f1; /* Light background for visibility */
 }
 
 .search-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0; /* Space around search container */
 }
 
 .search-input {
-  padding: 10px; /* Padding for input */
-  font-size: 1em; /* Font size for input */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 5px; /* Rounded corners */
-  margin-right: 10px; /* Space between input and button */
+    padding: 10px; /* Padding for input */
+    font-size: 1em; /* Font size for input */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    margin-right: 10px; /* Space between input and button */
+    width: 300px; /* Set width for the input */
 }
 
 .search-button {
-  padding: 10px 20px; /* Padding for button */
-  font-size: 1em; /* Font size for button */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  background-color: #1e90ff; /* Dodger blue */
-  color: white; /* Text color */
-  cursor: pointer; /* Cursor pointer on hover */
-  transition: background-color 0.3s; /* Smooth transition for hover */
+    padding: 10px 20px; /* Padding for button */
+    font-size: 1em; /* Font size for button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #1e90ff; /* Dodger blue */
+    color: white; /* Text color */
+    cursor: pointer; /* Cursor pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover */
 }
 
 .search-button:hover {
-  background-color: #104e8b; /* Darker blue on hover */
+    background-color: #104e8b; /* Darker blue on hover */
 }
 
 .options {
-  margin-top: 20px; /* Space above options */
+    margin-top: 20px; /* Space above options */
 }
 
 .theme-toggle {
-  padding: 10px; /* Padding for toggle */
-  font-size: 1em; /* Font size for toggle */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Padding for toggle */
+    font-size: 1em; /* Font size for toggle */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
 }
 
 /* Light Theme */
 .light {
-  background-color: white; /* Light theme background */
-  color: black; /* Light theme text color */
+    background-color: white; /* Light theme background */
+    color: black; /* Light theme text color */
 }
 
 .light a:hover {
-  color: #1e90ff; /* Light theme link hover color */
+    color: #1e90ff; /* Light theme link hover color */
 }
 
 .light button {
-  background-color: #f9f9f9; /* Light theme button background */
+    background-color: #f9f9f9; /* Light theme button background */
 }
 
 /* Dark Theme */
 .dark {
-  background-color: black; /* Dark theme background */
-  color: white; /* Dark theme text color */
+    background-color: black; /* Dark theme background */
+    color: white; /* Dark theme text color */
 }
