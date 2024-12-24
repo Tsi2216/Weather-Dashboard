@@ -30,15 +30,16 @@ body {
     text-align: center; /* Center align text */
     color: white;
     position: relative;
-    padding: 50px; /* Add padding for better spacing */
+    padding: 100px 20px; /* Add padding for better spacing */
     background: url('app.png') no-repeat center center fixed; /* Replace with your image path */
     background-size: cover;
     width: 100%; /* Full width */
     height: 60vh; /* Height for the background area */
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5); /* Dark overlay */
 }
 
 .content {
-    background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for better text visibility */
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for text */
     padding: 30px;
     border-radius: 10px;
     max-width: 600px; /* Limit width for readability */
