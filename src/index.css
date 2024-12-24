@@ -16,26 +16,24 @@
 body {
     margin: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-width: 320px;
     min-height: 100vh;
-    background: url('app.png') no-repeat center center fixed; /* Background image */
+    background: url('your-background-image.jpg') no-repeat center center fixed; /* Replace with your image path */
     background-size: cover;
     color: black; /* Default text color */
 }
 
 .background {
-    background-image: url('your-background-image.jpg'); /* Replace with your image path */
-    background-size: cover;
-    background-position: center;
-    height: 100vh; /* Full height of the viewport */
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: left; /* Align text to the left */
+    text-align: center; /* Center align text */
     color: white;
     position: relative;
+    padding: 50px; /* Add padding for better spacing */
 }
 
 .content {
@@ -43,10 +41,11 @@ body {
     padding: 30px;
     border-radius: 10px;
     max-width: 600px; /* Limit width for readability */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
 }
 
 h1 {
-    font-size: 3.2em; /* Title size */
+    font-size: 3.5em; /* Increase title size */
     line-height: 1.1;
     color: #1e90ff; /* Dodger blue for title */
     margin: 0; /* No margin for title */
@@ -56,7 +55,7 @@ h1 {
 .subtitle {
     font-size: 1.5em; /* Subtitle size */
     margin: 20px 0; /* Margin for subtitle */
-    color: #555; /* Subtitle color */
+    color: #dddddd; /* Subtitle color for contrast */
 }
 
 p {
@@ -69,7 +68,10 @@ p {
     flex-direction: column;
     align-items: center;
     padding: 20px; /* Space around the controls */
-    background-color: #f1f1f1; /* Light background for visibility */
+    background-color: #ffffff; /* Light background for visibility */
+    width: 100%; /* Full width for controls */
+    max-width: 600px; /* Limit width for readability */
+    border-top: 5px solid #1e90ff; /* Top border for separation */
 }
 
 .search-container {
@@ -80,7 +82,7 @@ p {
 
 .search-input {
     padding: 10px; /* Padding for input */
-    font-size: 1em; /* Font size for input */
+    font-size: 1.2em; /* Increase font size for input */
     border: 1px solid #ccc; /* Light border */
     border-radius: 5px; /* Rounded corners */
     margin-right: 10px; /* Space between input and button */
@@ -89,7 +91,7 @@ p {
 
 .search-button {
     padding: 10px 20px; /* Padding for button */
-    font-size: 1em; /* Font size for button */
+    font-size: 1.2em; /* Increase font size for button */
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     background-color: #1e90ff; /* Dodger blue */
