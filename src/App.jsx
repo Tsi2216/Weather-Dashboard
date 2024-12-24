@@ -14,54 +14,54 @@ const App = () => {
   const [theme, setTheme] = useState('light'); 
 
   useEffect(() => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-          setTheme(savedTheme);
-      }
-      getLocation(); 
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+    getLocation(); 
   }, []);
 
   useEffect(() => {
-      // Fetch weather data again when the language changes
-      if (weather) {
-          getLocation(); // Or use default city like 'London'
-      }
+    // Fetch weather data again when the language changes
+    if (weather) {
+      fetchWeatherDataByCoords(weather.coord.lat, weather.coord.lon); // Use current weather coordinates
+    }
   }, [language]);
 
   const toggleTheme = () => {
-      const newTheme = theme === 'light' ? 'dark' : 'light';
-      setTheme(newTheme);
-      localStorage.setItem('theme', newTheme);
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
   };
 
   const getLocation = () => {
-      navigator.geolocation.getCurrentPosition(
-          (position) => {
-              const { latitude, longitude } = position.coords;
-              fetchWeatherDataByCoords(latitude, longitude); // Fetch weather data using coordinates
-          }, 
-          (error) => {
-              setError('Unable to retrieve your location. Please try again.');
-              console.error('Geolocation error:', error);
-              // Optionally, you can call fetchWeatherDataByCoords with hardcoded values for testing
-              // fetchWeatherDataByCoords(51.5074, -0.1278); // Example: London coordinates
-          }
-      );
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        fetchWeatherDataByCoords(latitude, longitude); // Fetch weather data using coordinates
+      }, 
+      (error) => {
+        setError('Unable to retrieve your location. Please try again.');
+        console.error('Geolocation error:', error);
+        // Optionally, you can call fetchWeatherDataByCoords with hardcoded values for testing
+        // fetchWeatherDataByCoords(51.5074, -0.1278); // Example: London coordinates
+      }
+    );
   };
 
   const fetchWeatherDataByCoords = async (latitude, longitude) => {
-      setIsLoading(true);
-      try {
-          console.log('Fetching weather data for:', { latitude, longitude });
-          const data = await fetchWeatherData({ latitude, longitude }, language); // Pass the selected language
-          setWeather(data.currentWeather); 
-          setForecast(data.forecast); 
-      } catch (err) {
-          setError('Failed to fetch weather data. Please try again.');
-          console.error('Fetch error:', err);
-      } finally {
-          setIsLoading(false);
-      }
+    setIsLoading(true);
+    try {
+      console.log('Fetching weather data for:', { latitude, longitude });
+      const data = await fetchWeatherData({ lat: latitude, lon: longitude }, language); // Pass the selected language
+      setWeather(data.currentWeather); 
+      setForecast(data.forecast); 
+    } catch (err) {
+      setError('Failed to fetch weather data. Please try again.');
+      console.error('Fetch error:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSearch = async (city) => {
@@ -85,21 +85,22 @@ const App = () => {
   };
 
   const handleLanguageChange = async (event) => {
-      const newLanguage = event.target.value;
-      setLanguage(newLanguage);
-      setIsLoading(true);
-      try {
-          console.log('Changing language to:', newLanguage);
-          // Optionally, you can fetch weather data again here or in a useEffect
-          const data = await fetchWeatherData(weather.city, newLanguage); // Use current city from weather state
-          setWeather(data.currentWeather); 
-          setForecast(data.forecast); 
-      } catch (err) {
-          setError('Failed to fetch weather data. Please try again.');
-          console.error('Fetch error:', err);
-      } finally {
-          setIsLoading(false);
+    const newLanguage = event.target.value;
+    setLanguage(newLanguage);
+    setIsLoading(true);
+    try {
+      console.log('Changing language to:', newLanguage);
+      if (weather) {
+        const data = await fetchWeatherData(weather.name, newLanguage); // Use current city from weather state
+        setWeather(data.currentWeather); 
+        setForecast(data.forecast); 
       }
+    } catch (err) {
+      setError('Failed to fetch weather data. Please try again.');
+      console.error('Fetch error:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
