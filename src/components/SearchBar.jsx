@@ -41,7 +41,7 @@ const SearchBar = ({ onSearch }) => {
       setError('Failed to fetch weather data');
     } finally {
       setIsLoading(false);
-      setCity('');
+      setCity(''); // Clear the input field after search
     }
   };
 
@@ -68,7 +68,14 @@ const SearchBar = ({ onSearch }) => {
         {recentSearches.length > 0 && <h3 className="font-semibold">Recent Searches:</h3>}
         <ul className="list-disc pl-5">
           {recentSearches.map((recentCity, index) => (
-            <li key={index} className="text-blue-600 cursor-pointer" onClick={() => { setCity(recentCity); onSearch(recentCity); }}>
+            <li 
+              key={index} 
+              className="text-blue-600 cursor-pointer" 
+              onClick={() => { 
+                setCity(recentCity); 
+                onSearch(recentCity); 
+              }}
+            >
               {recentCity}
             </li>
           ))}

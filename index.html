@@ -2,19 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Get accurate weather forecasts and current weather conditions with OpenWeather." />
     <title>OpenWeather Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="/src/index.css" />
 </head>
 <body>
+    <div id="root"></div> <!-- This is the root element for React -->
+
     <div class="background">
         <div class="content">
             <h1>Weather Dashboard</h1>
             <p>Access current weather, forecasts, and historical data quickly and easily, designed for simplicity.</p>
         </div>
     </div>
+    
     <div class="controls">
         <div class="search-container">
             <input type="text" placeholder="Search city" class="search-input" />
@@ -33,7 +36,7 @@
     </div>
 
     <script type="module">
-        import { languages } from './src/constants/languages.js'; // Adjust the path as necessary
+        import { languages } from './src/constants/languages.js'; 
 
         const languageSelector = document.getElementById('language-selector');
 
@@ -44,6 +47,7 @@
             languageSelector.appendChild(option);
         });
     </script>
-    <script type="module" src="/src/main.jsx"></script>
+    
+    <script type="module" src="/src/main.jsx" defer></script>
 </body>
 </html>
