@@ -7,17 +7,12 @@
     font-weight: 400;
     color: rgba(0, 0, 0, 0.87);
     background-color: #f0f0f0; /* Light theme background */
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     min-width: 320px;
     min-height: 100vh;
@@ -30,39 +25,36 @@ body {
     text-align: center; /* Center align text */
     color: white;
     position: relative;
-    padding: 100px 20px; /* Add padding for better spacing */
-    background: url('app.png') no-repeat center center fixed; /* Replace with your image path */
-    background-size: cover;
+    padding: 100px 20px; /* Padding for spacing */
+    background: url('app.png') no-repeat center center; /* Background image */
+    background-size: cover; /* Cover to maintain aspect ratio */
     width: 100%; /* Full width */
     height: 60vh; /* Height for the background area */
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5); /* Dark overlay */
 }
 
-.content {
-    background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for text */
+.overlay {
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for text contrast */
     padding: 30px;
     border-radius: 10px;
-    max-width: 600px; /* Limit width for readability */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
 }
 
 h1 {
-    font-size: 3.5em; /* Increase title size */
+    font-size: 3.5em; /* Title size */
     line-height: 1.1;
-    color: #1e90ff; /* Dodger blue for title */
-    margin: 0; /* No margin for title */
-    font-weight: bold; /* Make the title bold */
+    color: #1e90ff; /* Title color */
+    margin: 0; /* No margin */
+    font-weight: bold; /* Bold title */
 }
 
 .subtitle {
     font-size: 1.5em; /* Subtitle size */
     margin: 20px 0; /* Margin for subtitle */
-    color: #dddddd; /* Subtitle color for contrast */
+    color: #dddddd; /* Subtitle color */
 }
 
 p {
-    font-size: 1.2em; /* Adjust size as needed */
-    margin-top: 10px; /* Space between title and paragraph */
+    font-size: 1.2em; /* Paragraph size */
+    margin-top: 10px; /* Space above paragraph */
 }
 
 /* Controls Section */
@@ -70,9 +62,9 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px; /* Space around the controls */
-    background-color: #ffffff; /* Light background for visibility */
-    width: 100%; /* Full width for controls */
+    padding: 20px; /* Padding around controls */
+    background-color: white; /* Light background for controls */
+    width: 100%; /* Full width */
     max-width: 600px; /* Limit width for readability */
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
     margin-top: 20px; /* Space between background and controls */
@@ -86,22 +78,22 @@ p {
 
 .search-input {
     padding: 10px; /* Padding for input */
-    font-size: 1.2em; /* Increase font size for input */
+    font-size: 1.2em; /* Input font size */
     border: 1px solid #ccc; /* Light border */
     border-radius: 5px; /* Rounded corners */
     margin-right: 10px; /* Space between input and button */
-    width: 300px; /* Set width for the input */
+    width: 300px; /* Width for input */
 }
 
 .search-button {
     padding: 10px 20px; /* Padding for button */
-    font-size: 1.2em; /* Increase font size for button */
+    font-size: 1.2em; /* Button font size */
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
-    background-color: #1e90ff; /* Dodger blue */
+    background-color: #1e90ff; /* Button color */
     color: white; /* Text color */
-    cursor: pointer; /* Cursor pointer on hover */
-    transition: background-color 0.3s; /* Smooth transition for hover */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition */
 }
 
 .search-button:hover {

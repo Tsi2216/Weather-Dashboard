@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -21,6 +21,9 @@
             <button id="searchButton" class="search-button">Search</button>
         </div>
         <div class="options">
+            <select class="language-selector" id="language-selector">
+                <!-- Options will be populated here -->
+            </select>
             <select class="theme-toggle">
                 <option value="">Toggle Theme</option>
                 <option value="metric">Metric</option>
@@ -28,6 +31,19 @@
             </select>
         </div>
     </div>
+
+    <script type="module">
+        import { languages } from './src/constants/languages.js'; // Adjust the path as necessary
+
+        const languageSelector = document.getElementById('language-selector');
+
+        languages.forEach(language => {
+            const option = document.createElement('option');
+            option.value = language.code;
+            option.textContent = language.name;
+            languageSelector.appendChild(option);
+        });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

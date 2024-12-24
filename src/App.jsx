@@ -21,6 +21,13 @@ const App = () => {
       getLocation(); 
   }, []);
 
+  useEffect(() => {
+      // Fetch weather data again when the language changes
+      if (weather) {
+          getLocation(); // Or use default city like 'London'
+      }
+  }, [language]);
+
   const toggleTheme = () => {
       const newTheme = theme === 'light' ? 'dark' : 'light';
       setTheme(newTheme);
@@ -77,9 +84,22 @@ const App = () => {
     }
   };
 
-  const handleLanguageChange = (event) => {
-      setLanguage(event.target.value);
-      // Optionally, you can fetch weather data again when the language changes
+  const handleLanguageChange = async (event) => {
+      const newLanguage = event.target.value;
+      setLanguage(newLanguage);
+      setIsLoading(true);
+      try {
+          console.log('Changing language to:', newLanguage);
+          // Optionally, you can fetch weather data again here or in a useEffect
+          const data = await fetchWeatherData(weather.city, newLanguage); // Use current city from weather state
+          setWeather(data.currentWeather); 
+          setForecast(data.forecast); 
+      } catch (err) {
+          setError('Failed to fetch weather data. Please try again.');
+          console.error('Fetch error:', err);
+      } finally {
+          setIsLoading(false);
+      }
   };
 
   return (
