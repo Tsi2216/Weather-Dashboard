@@ -21,9 +21,6 @@ body {
     align-items: center;
     min-width: 320px;
     min-height: 100vh;
-    background: url('your-background-image.jpg') no-repeat center center fixed; /* Replace with your image path */
-    background-size: cover;
-    color: black; /* Default text color */
 }
 
 .background {
@@ -34,6 +31,10 @@ body {
     color: white;
     position: relative;
     padding: 50px; /* Add padding for better spacing */
+    background: url('app.png') no-repeat center center fixed; /* Replace with your image path */
+    background-size: cover;
+    width: 100%; /* Full width */
+    height: 60vh; /* Height for the background area */
 }
 
 .content {
@@ -63,6 +64,7 @@ p {
     margin-top: 10px; /* Space between title and paragraph */
 }
 
+/* Controls Section */
 .controls {
     display: flex;
     flex-direction: column;
