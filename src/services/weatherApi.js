@@ -1,5 +1,3 @@
-// services/weatherApi.js
-
 const apiKey = '824a09abc61a18f2313f3cfa41584f10'; // Your OpenWeatherMap API key
 const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
@@ -18,7 +16,7 @@ export const fetchWeatherData = async (city) => {
 
         const data = await response.json();
 
-        // Structure the data to match the mock data format
+        // Structure the data to match the expected format
         return {
             currentWeather: {
                 city: data.name,
