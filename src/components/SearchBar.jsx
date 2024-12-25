@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { languages } from '../constants/languages'; // Adjust the import path as needed
 
 const SearchBar = ({ onSearch }) => {
   const [city, setCity] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [recentSearches, setRecentSearches] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState(''); // Default language
+  const [theme, setTheme] = useState('light'); // Default theme
 
   // Function to save recent searches to local storage
   const saveRecentSearch = (city) => {
@@ -45,6 +48,17 @@ const SearchBar = ({ onSearch }) => {
     }
   };
 
+  const handleLanguageChange = (e) => {
+    setSelectedLanguage(e.target.value);
+    // Logic to handle language change can be added here
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    // Logic to apply the new theme can be added here
+  };
+
   return (
     <div className="flex flex-col items-center mb-4">
       <div className="flex flex-col md:flex-row md:items-center w-full">
@@ -80,6 +94,26 @@ const SearchBar = ({ onSearch }) => {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="flex mt-4">
+        <select 
+          className="border p-2 rounded-md mr-2"
+          onChange={handleLanguageChange} 
+          value={selectedLanguage}
+        >
+          <option value="">Select Language</option>
+          {languages.map((language) => (
+            <option key={language.code} value={language.code}>
+              {language.name}
+            </option>
+          ))}
+        </select>
+        <button 
+          onClick={toggleTheme} 
+          className="border p-2 rounded-md"
+        >
+          Toggle Theme
+        </button>
       </div>
     </div>
   );

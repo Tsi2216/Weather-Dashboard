@@ -18,20 +18,6 @@
 
     <div id="root"></div> <!-- This is the root element for React -->
 
-    <script type="module">
-        import { languages } from './src/constants/languages.js'; 
-
-        const languageSelector = document.getElementById('language-selector');
-
-        // Populate language selector
-        languages.forEach(language => {
-            const option = document.createElement('option');
-            option.value = language.code;
-            option.textContent = language.name;
-            languageSelector.appendChild(option);
-        });
-    </script>
-    
     <script type="module" src="/src/main.jsx" defer></script>
 </body>
 </html>
