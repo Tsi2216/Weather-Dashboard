@@ -1,15 +1,14 @@
-// src/components/WeatherComponent.jsx
 import React, { useState } from 'react';
 import { fetchWeatherData } from '../services/weatherApi'; 
+import SearchBar from './SearchBar'; 
 
 const WeatherComponent = () => {
-    const [city, setCity] = useState('');
     const [currentWeather, setCurrentWeather] = useState(null);
     const [forecast, setForecast] = useState([]);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSearch = async () => {
+    const handleSearch = async (city) => {
         if (!city) {
             setError('Please enter a city name');
             return;
@@ -32,20 +31,14 @@ const WeatherComponent = () => {
     return (
         <div>
             <h1>Weather App</h1>
-            <input 
-                type="text" 
-                value={city} 
-                onChange={(e) => setCity(e.target.value)} 
-                placeholder="Enter city name" 
-            />
-            <button onClick={handleSearch}>Search</button>
+            <SearchBar onSearch={handleSearch} /> {/* Use SearchBar here */}
 
             {isLoading && <p>Loading...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
             {currentWeather && (
                 <div>
-                    <h2>Current Weather in {city}</h2>
+                    <h2>Current Weather</h2>
                     <p>Temperature: {currentWeather.temperature}°C</p>
                     <p>Condition: {currentWeather.condition}</p>
                 </div>
