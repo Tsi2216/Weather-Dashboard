@@ -22,12 +22,12 @@ const App = () => {
     getLocation(); 
   }, []);
 
-  // Fetch weather data again when the language changes
+  // Fetch weather data when language or weather changes
   useEffect(() => {
     if (weather) {
       fetchWeatherDataByCoords(weather.coord.lat, weather.coord.lon);
     }
-  }, [language, weather]); // Added weather to dependencies to avoid stale closures
+  }, [language, weather]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -88,18 +88,8 @@ const App = () => {
   const handleLanguageChange = async (event) => {
     const newLanguage = event.target.value;
     setLanguage(newLanguage);
-    setIsLoading(true);
-    try {
-      if (weather) {
-        const data = await fetchWeatherData(weather.name, newLanguage); 
-        setWeather(data.currentWeather); 
-        setForecast(data.forecast); 
-      }
-    } catch (err) {
-      setError('Failed to fetch weather data. Please try again.');
-      console.error('Fetch error:', err);
-    } finally {
-      setIsLoading(false);
+    if (weather) {
+      await fetchWeatherDataByCoords(weather.coord.lat, weather.coord.lon);
     }
   };
 
