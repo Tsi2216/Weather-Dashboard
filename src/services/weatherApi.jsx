@@ -13,7 +13,8 @@ export const fetchWeatherData = async (city) => {
         const response = await fetch(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`);
         
         if (!response.ok) {
-            throw new Error('City not found or API request failed');
+            const errorMessage = await response.text(); // Get the error message from the response
+            throw new Error(`City not found or API request failed: ${errorMessage}`);
         }
 
         const data = await response.json();
@@ -23,7 +24,8 @@ export const fetchWeatherData = async (city) => {
         const forecastResponse = await fetch(`${forecastApiUrl}?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
         
         if (!forecastResponse.ok) {
-            throw new Error('Forecast data request failed');
+            const errorMessage = await forecastResponse.text(); // Get the error message from the response
+            throw new Error(`Forecast data request failed: ${errorMessage}`);
         }
 
         const forecastData = await forecastResponse.json();
