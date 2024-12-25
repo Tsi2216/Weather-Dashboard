@@ -1,4 +1,4 @@
-// weatherApi.js
+// services/weatherApi.js
 
 const apiKey = '824a09abc61a18f2313f3cfa41584f10'; // Your OpenWeatherMap API key
 const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
@@ -17,13 +17,23 @@ export const fetchWeatherData = async (city) => {
         }
 
         const data = await response.json();
+
+        // Structure the data to match the mock data format
         return {
-            temperature: data.main.temp,
-            humidity: data.main.humidity,
-            windSpeed: data.wind.speed,
-            weatherCondition: data.weather.description, // Fixed to access the first weather condition
-            icon: data.weather.icon, // Fixed to access the first weather icon
-            cityName: data.name,
+            currentWeather: {
+                city: data.name,
+                temperature: data.main.temp,
+                condition: data.weather.description, // Access the first weather condition
+                humidity: data.main.humidity,
+                windSpeed: data.wind.speed,
+                icon: data.weather.icon, // Access the first weather icon
+            },
+            forecast: [
+                // You can add logic here to fetch or simulate forecast data
+                { date: '2024-12-26', temperature: 26, condition: 'Partly Cloudy' },
+                { date: '2024-12-27', temperature: 24, condition: 'Rainy' },
+                { date: '2024-12-28', temperature: 22, condition: 'Sunny' },
+            ],
         };
     } catch (error) {
         console.error('Error fetching weather data:', error);
