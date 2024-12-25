@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="/src/index.css" />
 </head>
 <body>
-    <div id="root"></div> <!-- This is the root element for React -->
-
     <div class="background">
         <div class="content">
             <h1>Weather Dashboard</h1>
             <p>Access current weather, forecasts, and historical data quickly and easily, designed for simplicity.</p>
         </div>
     </div>
-    
+
+    <div id="root"></div> <!-- This is the root element for React -->
+
     <div class="controls">
         <div class="search-container">
             <input type="text" placeholder="Search city" class="search-input" />
@@ -40,6 +40,7 @@
 
         const languageSelector = document.getElementById('language-selector');
 
+        // Populate language selector
         languages.forEach(language => {
             const option = document.createElement('option');
             option.value = language.code;

@@ -27,7 +27,7 @@ const App = () => {
     if (weather) {
       fetchWeatherDataByCoords(weather.coord.lat, weather.coord.lon);
     }
-  }, [language]);
+  }, [language, weather]); // Added weather to dependencies to avoid stale closures
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -36,16 +36,20 @@ const App = () => {
   };
 
   const getLocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        fetchWeatherDataByCoords(latitude, longitude);
-      }, 
-      (error) => {
-        setError('Unable to retrieve your location. Please try again.');
-        console.error('Geolocation error:', error);
-      }
-    );
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeatherDataByCoords(latitude, longitude);
+        }, 
+        (error) => {
+          setError('Unable to retrieve your location. Please try again.');
+          console.error('Geolocation error:', error);
+        }
+      );
+    } else {
+      setError('Geolocation is not supported by this browser.');
+    }
   };
 
   const fetchWeatherDataByCoords = async (latitude, longitude) => {
@@ -102,7 +106,7 @@ const App = () => {
   return (
     <div className={`container mx-auto p-4 md:p-8 lg:p-12 ${theme}`}>
       <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4">Weather Dashboard</h1>
-      <button onClick={toggleTheme}>Toggle Theme</button>
+      <button onClick={toggleTheme} className="mb-4 p-2 bg-gray-200 rounded">Toggle Theme</button>
       <LanguageSelector selectedLanguage={language} onLanguageChange={handleLanguageChange} />
       <SearchBar onSearch={handleSearch} />
       {isLoading && <p className="text-blue-500">Loading...</p>}

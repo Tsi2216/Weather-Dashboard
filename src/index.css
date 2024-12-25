@@ -25,15 +25,16 @@ body {
     text-align: center; /* Center align text */
     color: white;
     position: relative;
-    padding: 100px 20px; /* Padding for spacing */
+    padding: 60px 20px; /* Reduced padding */
     background: url('app.png') no-repeat center center; /* Background image */
     background-size: cover; /* Cover to maintain aspect ratio */
     width: 100%; /* Full width */
     height: 60vh; /* Height for the background area */
+    border-bottom: 5px solid #1e90ff; /* Blue bottom border */
 }
 
 .overlay {
-    background: rgba(0, 0, 0, 0.5); /* Dark overlay for text contrast */
+    background: rgba(0, 0, 0, 0.6); /* Slightly darker overlay for text contrast */
     padding: 30px;
     border-radius: 10px;
 }
@@ -47,17 +48,16 @@ h1 {
 }
 
 .subtitle {
-    font-size: 1.5em; /* Subtitle size */
+    font-size: 1.2em; /* Subtitle size */
     margin: 20px 0; /* Margin for subtitle */
     color: #dddddd; /* Subtitle color */
 }
 
 p {
-    font-size: 1.2em; /* Paragraph size */
+    font-size: 1em; /* Paragraph size */
     margin-top: 10px; /* Space above paragraph */
 }
 
-/* Controls Section */
 .controls {
     display: flex;
     flex-direction: column;

@@ -69,7 +69,7 @@ const SearchBar = ({ onSearch }) => {
         <ul className="list-disc pl-5">
           {recentSearches.map((recentCity, index) => (
             <li 
-              key={index} 
+              key={recentCity} // Use recentCity as key to avoid duplicates
               className="text-blue-600 cursor-pointer" 
               onClick={() => { 
                 setCity(recentCity); 
