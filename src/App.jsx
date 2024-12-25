@@ -4,7 +4,7 @@ import { fetchWeatherData } from './services/weatherApi';
 import SearchBar from './components/SearchBar';
 import WeeklyForecast from './components/WeeklyForecast'; 
 import LanguageSelector from './components/LanguageSelector'; 
-import WeatherComponent from './components/WeatherComponent'; // Import WeatherComponent
+import WeatherComponent from './components/WeatherComponent'; 
 
 const App = () => {
   const [theme, setTheme] = useState('light'); 
