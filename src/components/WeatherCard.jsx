@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import fetchWeatherData from '../services/weatherApi'; // Adjust the path as needed
-import WeatherCard from './WeatherCard'; // Adjust the path as needed
+import { fetchWeatherData } from '../services/weatherApi'; 
 
 const WeatherComponent = () => {
     const [city, setCity] = useState('');
@@ -48,4 +47,4 @@ const WeatherComponent = () => {
     );
 };
 
-export default WeatherComponent;
+export default WeatherCard; 

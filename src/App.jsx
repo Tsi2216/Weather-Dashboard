@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import fetchWeatherData from './services/weatherApi'; 
+import { fetchWeatherData } from './services/weatherApi';
 import SearchBar from './components/SearchBar';
 import WeatherCard from './components/WeatherCard';
 import WeeklyForecast from './components/WeeklyForecast'; 

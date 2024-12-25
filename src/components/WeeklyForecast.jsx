@@ -1,14 +1,18 @@
 // src/components/WeeklyForecast.jsx
 import React, { useEffect, useState } from 'react';
-import fetchWeatherData from '../services/weatherApi';
+import { fetchWeatherData } from '../services/weatherApi'; 
 
 const WeeklyForecast = ({ lat, lon }) => {
     const [forecast, setForecast] = useState([]);
 
     useEffect(() => {
         const getForecast = async () => {
-            const data = await fetchWeeklyForecast(lat, lon);
-            setForecast(data);
+            try {
+                const data = await fetchWeatherData(lat, lon); 
+                setForecast(data.forecast);
+            } catch (error) {
+                console.error("Error fetching forecast data:", error);
+            }
         };
         getForecast();
     }, [lat, lon]);
@@ -19,8 +23,8 @@ const WeeklyForecast = ({ lat, lon }) => {
             <ul>
                 {forecast.map((day, index) => (
                     <li key={index}>
-                        <p>Day {index + 1}: High {day.temp.max} °C, Low {day.temp.min} °C</p>
-                        <p>Condition: {day.weather.description}</p>
+                        <p>Day {index + 1}: High {day.high} °C, Low {day.low} °C</p> 
+                        <p>Condition: {day.weather}</p> 
                     </li>
                 ))}
             </ul>

@@ -1,32 +1,32 @@
-const fetchWeatherData = async (city, lang = 'en') => {
-  const apiKey = '824a09abc61a18f2313f3cfa41584f10';
+// weatherApi.js
 
-  try {
-    // Fetch current weather data
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric&lang=${lang}`);
-    
-    if (!response.ok) {
-      const errorResponse = await response.json();
-      throw new Error(`City not found: ${errorResponse.message}`);
+const apiKey = '824a09abc61a18f2313f3cfa41584f10'; // Your OpenWeatherMap API key
+const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+
+/**
+ * Fetch weather data for a given city.
+ * @param {string} city - The name of the city to fetch weather data for.
+ * @returns {Promise<object>} - A promise that resolves to the weather data.
+ */
+export const fetchWeatherData = async (city) => {
+    try {
+        const response = await fetch(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`);
+        
+        if (!response.ok) {
+            throw new Error('City not found or API request failed');
+        }
+
+        const data = await response.json();
+        return {
+            temperature: data.main.temp,
+            humidity: data.main.humidity,
+            windSpeed: data.wind.speed,
+            weatherCondition: data.weather.description, // Fixed to access the first weather condition
+            icon: data.weather.icon, // Fixed to access the first weather icon
+            cityName: data.name,
+        };
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+        throw error; // Rethrow the error for handling in the component
     }
-    
-    const currentWeather = await response.json();
-    
-    // Extract needed data
-    const weatherData = {
-      temperature: currentWeather.main.temp,
-      humidity: currentWeather.main.humidity,
-      windSpeed: currentWeather.wind.speed,
-      weatherCondition: currentWeather.weather[0].description,
-      icon: currentWeather.weather[0].icon, // Get icon for weather
-    };
-
-    // Return only current weather data
-    return weatherData;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Failed to fetch weather data. Please try again.');
-  }
 };
-
-export default fetchWeatherData;
