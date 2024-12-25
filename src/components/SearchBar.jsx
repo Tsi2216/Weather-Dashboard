@@ -35,7 +35,7 @@ const SearchBar = ({ onSearch }) => {
     setError('');
     setIsLoading(true);
     try {
-      await onSearch(city);
+      await onSearch(city); // Trigger search from parent component
       saveRecentSearch(city); // Save city to recent searches
     } catch (err) {
       setError('Failed to fetch weather data');
@@ -67,9 +67,9 @@ const SearchBar = ({ onSearch }) => {
       <div className="mt-4">
         {recentSearches.length > 0 && <h3 className="font-semibold">Recent Searches:</h3>}
         <ul className="list-disc pl-5">
-          {recentSearches.map((recentCity, index) => (
+          {recentSearches.map((recentCity) => (
             <li 
-              key={recentCity} // Use recentCity as key to avoid duplicates
+              key={recentCity} 
               className="text-blue-600 cursor-pointer" 
               onClick={() => { 
                 setCity(recentCity); 

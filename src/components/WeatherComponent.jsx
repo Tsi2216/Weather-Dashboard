@@ -10,8 +10,7 @@ const WeatherComponent = () => {
 
     const handleSearch = async (city) => {
         if (!city) {
-            setError('Please enter a city name');
-            return;
+            return; // No need for error handling here; handled in SearchBar
         }
         
         setIsLoading(true);
@@ -31,7 +30,7 @@ const WeatherComponent = () => {
     return (
         <div>
             <h1>Weather App</h1>
-            <SearchBar onSearch={handleSearch} /> {/* Use SearchBar here */}
+            <SearchBar onSearch={handleSearch} /> {/* Pass search function to SearchBar */}
 
             {isLoading && <p>Loading...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
