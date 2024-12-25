@@ -1,7 +1,7 @@
 // src/services/weatherApi.js
 
 const fetchWeatherData = async (city, lang = 'en') => {
-  const apiKey = '364a5d46309eea7c3b47e963e8bb92e5';
+  const apiKey = '824a09abc61a18f2313f3cfa41584f10';
 
   try {
     // Fetch current weather data to get latitude and longitude
