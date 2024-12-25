@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchWeatherData } from './services/weatherApi';
 import SearchBar from './components/SearchBar';
-import WeatherCard from './components/WeatherCard';
 import WeeklyForecast from './components/WeeklyForecast'; 
 import LanguageSelector from './components/LanguageSelector'; 
 import WeatherComponent from './components/WeatherComponent'; // Import WeatherComponent
@@ -29,6 +28,7 @@ const App = () => {
       <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4">Weather Dashboard</h1>
       <button onClick={toggleTheme} className="mb-4 p-2 bg-gray-200 rounded">Toggle Theme</button>
       <WeatherComponent /> {/* Include WeatherComponent here */}
+      {/* Removed WeatherCard component */}
     </div>
   );
 };

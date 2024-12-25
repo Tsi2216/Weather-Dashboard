@@ -1,8 +1,6 @@
 // src/components/WeatherComponent.jsx
 import React, { useState } from 'react';
 import { fetchWeatherData } from '../services/weatherApi'; 
-import WeatherCard from './WeatherCard'; 
-import WeeklyForecast from './WeeklyForecast'; 
 
 const WeatherComponent = () => {
     const [city, setCity] = useState('');
@@ -12,41 +10,61 @@ const WeatherComponent = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSearch = async () => {
-        if (!city.trim()) {
+        if (!city) {
             setError('Please enter a city name');
             return;
         }
-        setError('');
+        
         setIsLoading(true);
+        setError('');
+        
         try {
-            const data = await fetchWeatherData(city); // Fetch weather data using the city name
-            setCurrentWeather(data.currentWeather); 
-            setForecast(data.forecast); 
+            const weatherData = await fetchWeatherData(city);
+            setCurrentWeather(weatherData.current);
+            setForecast(weatherData.forecast);
         } catch (err) {
             setError('Failed to fetch weather data. Please try again.');
-            console.error('Fetch error:', err);
         } finally {
             setIsLoading(false);
-            setCity(''); // Clear the input field after search
         }
     };
 
     return (
         <div>
-            <input
-                type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="Enter city"
+            <h1>Weather App</h1>
+            <input 
+                type="text" 
+                value={city} 
+                onChange={(e) => setCity(e.target.value)} 
+                placeholder="Enter city name" 
             />
-            <button onClick={handleSearch} disabled={isLoading}>
-                {isLoading ? 'Loading...' : 'Search'}
-            </button>
-            {error && <p className="text-red-500">{error}</p>}
-            {currentWeather && <WeatherCard weather={currentWeather} />}
-            {forecast.length > 0 && <WeeklyForecast forecast={forecast} />}
+            <button onClick={handleSearch}>Search</button>
+
+            {isLoading && <p>Loading...</p>}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+
+            {currentWeather && (
+                <div>
+                    <h2>Current Weather in {city}</h2>
+                    <p>Temperature: {currentWeather.temperature}°C</p>
+                    <p>Condition: {currentWeather.condition}</p>
+                </div>
+            )}
+
+            {forecast.length > 0 && (
+                <div>
+                    <h2>Forecast</h2>
+                    <ul>
+                        {forecast.map((day, index) => (
+                            <li key={index}>
+                                {day.date}: {day.temperature}°C, {day.condition}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 };
 
-export default WeatherComponent; 
+export default WeatherComponent;
