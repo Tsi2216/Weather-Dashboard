@@ -1,4 +1,3 @@
-// src/components/WeeklyForecast.jsx
 import React, { useEffect, useState } from 'react';
 import { fetchWeatherData } from '../services/weatherApi'; // Ensure this matches your export
 
