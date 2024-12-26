@@ -9,7 +9,7 @@ const WeeklyForecast = ({ lat, lon }) => {
     useEffect(() => {
         const getWeather = async () => {
             try {
-                const data = await fetchWeatherData('London'); // You can use lat and lon if needed
+                const data = await fetchWeatherData(`${lat},${lon}`); // Use lat and lon for fetching
                 setWeather(data);
             } catch (err) {
                 setError(err.message);
@@ -31,7 +31,7 @@ const WeeklyForecast = ({ lat, lon }) => {
         <div>
             <h1>Weekly Forecast for {weather.name}</h1>
             <p>Temperature: {weather.main.temp}°C</p>
-            <p>Weather: {weather.weather.description}</p>
+            <p>Weather: {weather.weather.description}</p> {/* Access the first element of the weather array */}
             {/* Add more weather details as needed */}
         </div>
     );
