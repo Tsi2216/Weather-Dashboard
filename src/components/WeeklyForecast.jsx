@@ -1,33 +1,38 @@
 // src/components/WeeklyForecast.jsx
 import React, { useEffect, useState } from 'react';
-import { fetchWeatherData } from '../services/weatherApi'; 
+import { fetchWeatherData } from '../services/weatherApi'; // Ensure this matches your export
 
 const WeeklyForecast = ({ lat, lon }) => {
-    const [forecast, setForecast] = useState([]);
+    const [weather, setWeather] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const getForecast = async () => {
+        const getWeather = async () => {
             try {
-                const data = await fetchWeatherData(lat, lon); 
-                setForecast(data.forecast);
-            } catch (error) {
-                console.error("Error fetching forecast data:", error);
+                const data = await fetchWeatherData('London'); // You can use lat and lon if needed
+                setWeather(data);
+            } catch (err) {
+                setError(err.message);
             }
         };
-        getForecast();
+
+        getWeather();
     }, [lat, lon]);
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    if (!weather) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div>
-            <h2 className="text-xl font-bold">Weekly Forecast</h2>
-            <ul>
-                {forecast.map((day, index) => (
-                    <li key={index}>
-                        <p>Day {index + 1}: High {day.high} °C, Low {day.low} °C</p> 
-                        <p>Condition: {day.weather}</p> 
-                    </li>
-                ))}
-            </ul>
+            <h1>Weekly Forecast for {weather.name}</h1>
+            <p>Temperature: {weather.main.temp}°C</p>
+            <p>Weather: {weather.weather.description}</p>
+            {/* Add more weather details as needed */}
         </div>
     );
 };
