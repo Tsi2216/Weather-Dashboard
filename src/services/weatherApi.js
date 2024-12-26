@@ -2,35 +2,27 @@ const apiKey = '824a09abc61a18f2313f3cfa41584f10'; // Your OpenWeatherMap API ke
 const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
 const forecastApiUrl = 'https://api.openweathermap.org/data/2.5/onecall';
 
-/**
- * Fetch weather data for a given city.
- * @param {string} city - The name of the city to fetch weather data for.
- * @returns {Promise<object>} - A promise that resolves to the weather data.
- */
 export const fetchWeatherData = async (city) => {
     try {
-        // Fetch current weather data
         const response = await fetch(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`);
         
         if (!response.ok) {
-            const errorMessage = await response.text(); // Get the error message from the response
-            throw new Error(`City not found or API request failed: ${errorMessage}`);
+            const errorMessage = await response.json(); // Get the error message from the response
+            throw new Error(`City not found or API request failed: ${errorMessage.message}`);
         }
 
         const data = await response.json();
-        const { lat, lon } = data.coord; // Get latitude and longitude for forecast
+        const { lat, lon } = data.coord;
 
-        // Fetch forecast data using One Call API
         const forecastResponse = await fetch(`${forecastApiUrl}?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
         
         if (!forecastResponse.ok) {
-            const errorMessage = await forecastResponse.text(); // Get the error message from the response
-            throw new Error(`Forecast data request failed: ${errorMessage}`);
+            const errorMessage = await forecastResponse.json(); // Get the error message from the response
+            throw new Error(`Forecast data request failed: ${errorMessage.message}`);
         }
 
         const forecastData = await forecastResponse.json();
 
-        // Structure the data to match the expected format
         return {
             currentWeather: {
                 city: data.name,
