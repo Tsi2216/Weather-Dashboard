@@ -1,0 +1,337 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #e3f2fd, #bbdefb); /* Gradient background */
+}
+
+.weather {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    margin: auto;
+    padding: 40px;
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Overlay Styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 100; /* Ensure it covers content */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: -250px; /* Hidden by default */
+    width: 250px;
+    height: 100%;
+    max-height: 100vh; /* Limit the height to the viewport height */
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: left 0.3s ease;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.sidebar.open {
+    left: 0; /* Show the sidebar */
+}
+
+.sidebar-icon {
+    position: absolute; /* Position the icon absolutely */
+    top: 20px; /* Distance from the top */
+    left: 20px; /* Distance from the left */
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.sidebar-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Search Bar Styles */
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin: 20px 0; /* Adjust the margin as needed */
+}
+
+.search-bar input {
+    flex: 1; /* Allow the input to take up available space */
+    height: 50px; /* Increased height for better usability */
+    padding: 10px;
+    border: 2px solid #4CAF50; /* Green border */
+    outline: none;
+    border-radius: 25px; /* More rounded corners */
+    margin-right: 10px; /* Space between input and icon */
+    color: #333; /* Dark text color */
+    background: #f9f9f9; /* Light grey background */
+    font-size: 18px; /* Font size */
+    transition: background 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+.search-bar input:focus {
+    background: #e0ffe0; /* Light green background on focus */
+    border-color: #388E3C; /* Darker green border on focus */
+}
+
+.search-bar img {
+    cursor: pointer;
+    width: 30px; /* Adjust the size as needed */
+    height: 30px; /* Adjust the size as needed */
+    padding: 8px; /* Adjusted padding */
+    border-radius: 50%; /* Circular background */
+    background: #ebfffc; /* Light background */
+    transition: transform 0.2s, background 0.3s; /* Smooth transition for scaling */
+}
+
+.search-bar img:hover {
+    background: #c1f7f1; /* Change background on hover */
+    transform: scale(1.1); /* Slightly enlarge the icon */
+}
+
+.language-selector {
+    margin-left: 10px; /* Space between the search bar and the language selector */
+}
+
+.language-selector select {
+    padding: 0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px; /* Font size for better readability */
+    background: #fff; /* Background for contrast */
+    color: #333; /* Text color */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.language-selector select:hover {
+    border-color: #4CAF50; /* Change border color on hover */
+}
+
+/* Weather Icon Styles */
+.weather_icon {
+    width: 120px;
+    margin: 30px 0;
+}
+
+.temperature {
+    color: #fff;
+    font-size: 80px;
+    line-height: 1;
+}
+
+/* Location and Favorite Icon Styles */
+.location {
+    display: inline-flex; /* Use inline-flex to keep it inline */
+    align-items: center; /* Center items vertically */
+    color: #fff;
+    font-size: 40px;
+    margin: 10px 0; /* Keep the margin for spacing */
+}
+
+/* Favorite Icon Styles */
+.favorite-icon {
+    margin-left: 10px; /* Space between city name and icon */
+    width: 34px; /* Set width for the icon */
+    height: 34px; /* Set height for the icon */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: transform 0.2s; /* Add a transition effect */
+}
+
+.favorite-icon:hover {
+    transform: scale(1.1); /* Slightly increase size on hover */
+}
+
+.favorite-icon.filled {
+    filter: brightness(0) saturate(100%) invert(39%) sepia(100%) saturate(1000%) hue-rotate(322deg) brightness(100%) contrast(100%); /* Example for changing color */
+}
+
+/* Weather Data Styles */
+.weather_data {
+    width: 100%;
+    margin-top: 40px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.weather_data .col {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 22px;
+}
+
+.weather_data .col span {
+    display: block;
+    font-size: 16px;
+}
+
+.weather_data .col img {
+    width: 30px; /* Reduced size */
+    margin-top: 10px;
+}
+
+/* Forecast Styles */
+.forecast {
+    width: 100%; /* Full width */
+    max-height: 300px; /* Set a max height */
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: space-around; /* Space items evenly */
+    margin-top: 20px; /* Space above forecast */
+    padding: 20px; /* Add padding */
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+.forecast-item {
+    background: rgba(255, 255, 255, 0.4); /* Semi-transparent background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Padding inside each forecast item */
+    margin: 10px; /* Margin between forecast items */
+    text-align: center; /* Center the text */
+    width: 120px; /* Fixed width for each forecast item */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+}
+
+.forecast-item:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); /* Shadow on hover */
+}
+
+.forecast-item img {
+    width: 40px; /* Reduced size */
+}
+
+.forecast-item p {
+    color: #fff; /* Text color for forecast details */
+    font-size: 18px; /* Font size for temperature */
+    margin: 5px 0; /* Margin for spacing */
+}
+
+/* Recent Searches Styles */
+.recent-searches {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
+    border-radius: 12px; /* More rounded corners */
+    padding: 25px; /* Increased padding for better spacing */
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1); /* Deeper shadow for depth */
+    max-height: 300px; /* Limit the height of recent searches */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.recent-search {
+    cursor: pointer;
+    padding: 15px; /* Comfortable padding */
+    background: #ffffff; /* White background for items */
+    border-radius: 10px; /* Rounded corners */
+    margin: 10px 0; /* Increased margin for spacing */
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s; /* Smooth transitions */
+    border: 1px solid #e0e0e0; /* Light gray border */
+    font-family: 'Arial', sans-serif; /* Clean font */
+    color: #444; /* Darker text for readability */
+    font-size: 1.2rem; /* Larger font size */
+}
+
+.recent-search:hover {
+    background: #e8f5e9; /* Light green background on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Shadow on hover for depth */
+    border: 1px solid #c8e6c9; /* Light green border on hover */
+    color: #2e7d32; /* Darker green text on hover */
+}
+
+/* Loading Spinner */
+.loading {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid #4CAF50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto; /* Center the spinner */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Toggle Button Styles */
+.toggle-forecast {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth background color transition */
+    margin-top: 20px; /* Space above toggle button */
+}
+
+.toggle-forecast:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
+    .weather {
+        padding: 20px; /* Reduce padding for mobile */
+    }
+
+    .search-bar input {
+        height: 50px; /* Increased height for better usability */
+        font-size: 16px; /* Adjust font size for mobile */
+    }
+
+    .temperature {
+        font-size: 50px; /* Smaller font size for mobile */
+    }
+
+    .location {
+        font-size: 24px; /* Smaller font size for mobile */
+    }
+
+    .weather_data {
+        flex-direction: column; /* Stack columns vertically */
+        align-items: center; /* Center the items */
+    }
+
+    .weather_data .col {
+        margin: 10px 0; /* Add margin for spacing between stacked columns */
+        justify-content: center; /* Center the content */
+    }
+
+    .forecast {
+        flex-direction: column; /* Stack forecast items vertically */
+        align-items: center; /* Center the items */
+    }
+
+    .forecast-item {
+        width: 90%; /* Make items responsive */
+        margin: 5px 0; /* Reduce margins for a compact view */
+    }
+}
