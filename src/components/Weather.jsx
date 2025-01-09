@@ -646,20 +646,25 @@ const Weather = () => {
                     selectedLanguage={selectedLanguage} 
                 />
             )}
-            {showForecast && (
-                <div className="forecast" style={{ color: forecastTextColor }}>
-                    {forecastData.map((item, index) => (
-                        <div key={index} className="forecast-item">
-                            <p>
-                                {new Date(item.dt * 1000).toLocaleDateString()} 
-                                {new Date(item.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                            </p>
-                            <img src={allIcons[item.weather[0].icon] || sun_icon} alt="Forecast Icon" />
-                            <p>{Math.floor(item.main.temp)}°C</p>
-                        </div>
-                    ))}
-                </div>
-            )}
+           {showForecast && (
+    <div className="forecast" style={{ color: forecastTextColor }}>
+        {forecastData.map((item, index) => (
+            <div key={index} className="forecast-item">
+                <img 
+                    src={allIcons[item.weather[0].icon] || sun_icon} 
+                    alt="Forecast Icon" 
+                />
+                <p className="date">
+                    {new Date(item.dt * 1000).toLocaleDateString()}
+                </p>
+                <p className="time">
+                    {new Date(item.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </p>
+                <p>{Math.floor(item.main.temp)}°C</p>
+            </div>
+        ))}
+    </div>
+)}
             <button 
                 className="toggle-forecast" 
                 onClick={toggleForecast} 

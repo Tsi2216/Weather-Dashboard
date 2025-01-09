@@ -227,6 +227,14 @@ body {
     font-size: 18px; /* Font size for temperature */
     margin: 5px 0; /* Margin for spacing */
 }
+/* Optional: You can also style date and time separately if needed */
+.forecast-item .date {
+    font-weight: bold; /* Make date stand out */
+}
+
+.forecast-item .time {
+    font-size: 16px; /* Slightly smaller font for time */
+}
 
 /* Recent Searches Styles */
 .recent-searches {
