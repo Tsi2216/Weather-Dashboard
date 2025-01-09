@@ -12,7 +12,7 @@ import wind_icon from '../assets/icons/wind.png';
 import humidity_icon from '../assets/icons/humidity.png';
 import favorite_icon from '../assets/icons/favorite.png';
 import favorite_icon_filled from '../assets/icons/favorite_filled.png';
-import defaultBackground from '../assets/images/snow.png';
+import defaultBackground from '../assets/images/cloudy.png';
 import clearBackground from '../assets/images/clear.png'; 
 import cloudyBackground from '../assets/images/cloudy.png'; 
 import rainyBackground from '../assets/images/rainy.png'; 
