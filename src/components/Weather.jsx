@@ -16,7 +16,7 @@ import defaultBackground from '../assets/images/snow.png';
 import clearBackground from '../assets/images/clear.png'; 
 import cloudyBackground from '../assets/images/cloudy.png'; 
 import rainyBackground from '../assets/images/rainy.png'; 
-import snowyBackground from '../assets/images/Snow.png'; 
+import snowyBackground from '../assets/images/snow.png'; 
 import sidebarBackground from '../assets/images/cloudi.png'; 
 
 // SearchBar Component
