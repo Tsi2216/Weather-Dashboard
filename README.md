@@ -43,7 +43,7 @@ VITE_APP_ID=your_openweathermap_api_key
 Start the development server:
 
 npm run dev
-Open your web browser and go to http://localhost:3000 to see the app in action.
+Open your web browser and go to http://localhost:5173/ to see the app in action.
 Usage
 Use the search bar to find weather information for a city.
 Click on the favorite icon to save a location as a favorite.
