@@ -54,9 +54,9 @@ body {
     position: absolute; /* Position the icon absolutely */
     top: 20px; /* Distance from the top */
     left: 20px; /* Distance from the left */
-    width: 30px;
+    width: 35px;
     height: 30px;
-    background: #fff;
+    background: #D3D3D3;
     cursor: pointer;
     transition: transform 0.2s;
 }

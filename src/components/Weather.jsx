@@ -49,12 +49,13 @@ const SearchBar = ({ search, inputRef, handleLanguageChange, selectedLanguage, s
     </div>
 );
 
+// Prop validation for SearchBar component
 SearchBar.propTypes = {
-    search: PropTypes.func.isRequired,
-    inputRef: PropTypes.object.isRequired,
-    handleLanguageChange: PropTypes.func.isRequired,
-    selectedLanguage: PropTypes.string.isRequired,
-    supportedLanguages: PropTypes.object.isRequired,
+    search: PropTypes.func.isRequired, // Function to perform search
+    inputRef: PropTypes.object.isRequired, // Reference to the input element
+    handleLanguageChange: PropTypes.func.isRequired, // Function to handle language change
+    selectedLanguage: PropTypes.string.isRequired, // Currently selected language
+    supportedLanguages: PropTypes.object.isRequired, // Object containing supported languages
 };
 
 // WeatherCard Component
@@ -95,13 +96,14 @@ const WeatherCard = ({ weatherData, isFavorite, toggleFavorite, handleRefresh, t
     </>
 );
 
+// Prop validation for WeatherCard component
 WeatherCard.propTypes = {
-    weatherData: PropTypes.object.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    toggleFavorite: PropTypes.func.isRequired,
-    handleRefresh: PropTypes.func.isRequired,
-    translations: PropTypes.object.isRequired,
-    selectedLanguage: PropTypes.string.isRequired,
+    weatherData: PropTypes.object.isRequired, // Object containing weather data
+    isFavorite: PropTypes.bool.isRequired, // Boolean indicating if the location is a favorite
+    toggleFavorite: PropTypes.func.isRequired, // Function to toggle favorite status
+    handleRefresh: PropTypes.func.isRequired, // Function to refresh weather data
+    translations: PropTypes.object.isRequired, // Object containing translations for different languages
+    selectedLanguage: PropTypes.string.isRequired, // Currently selected language
 };
 
 // ErrorMessage Component
@@ -109,24 +111,26 @@ const ErrorMessage = ({ errorMessage }) => (
     errorMessage && <p className="error-message" aria-live="assertive">{errorMessage}</p>
 );
 
+// Prop validation for ErrorMessage component
 ErrorMessage.propTypes = {
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.string, // Error message to display
 };
 
+// Main Weather Component
 const Weather = () => {
-    const inputRef = useRef();
-    const [weatherData, setWeatherData] = useState(null);
-    const [forecastData, setForecastData] = useState([]);
-    const [recentSearches, setRecentSearches] = useState([]);
-    const [favoriteLocations, setFavoriteLocations] = useState([]);
-    const [showSidebar, setShowSidebar] = useState(false);
-    const [showForecast, setShowForecast] = useState(false);
-    const [forecastTextColor, setForecastTextColor] = useState('#fff');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [selectedLanguage, setSelectedLanguage] = useState('en');
-    const [isFavorite, setIsFavorite] = useState(false);
-    const [backgroundImage, setBackgroundImage] = useState(defaultBackground); 
+    const inputRef = useRef(); // Reference for the search input
+    const [weatherData, setWeatherData] = useState(null); // State for weather data
+    const [forecastData, setForecastData] = useState([]); // State for forecast data
+    const [recentSearches, setRecentSearches] = useState([]); // State for recent searches
+    const [favoriteLocations, setFavoriteLocations] = useState([]); // State for favorite locations
+    const [showSidebar, setShowSidebar] = useState(false); // State to control sidebar visibility
+    const [showForecast, setShowForecast] = useState(false); // State to control forecast visibility
+    const [forecastTextColor, setForecastTextColor] = useState('#fff'); // State for forecast text color
+    const [errorMessage, setErrorMessage] = useState(''); // State for error messages
+    const [isLoading, setIsLoading] = useState(false); // State for loading status
+    const [selectedLanguage, setSelectedLanguage] = useState('en'); // State for selected language
+    const [isFavorite, setIsFavorite] = useState(false); // State to check if location is favorite
+    const [backgroundImage, setBackgroundImage] = useState(defaultBackground); // State for background image
 
     // All weather icons mapping
     const allIcons = {
@@ -321,69 +325,68 @@ const Weather = () => {
         },
     };
  // ... (translation objects here)
-    
 
     // Fetch recent searches and favorite locations on mount
     useEffect(() => {
         const storedSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
         const storedFavorites = JSON.parse(localStorage.getItem('favoriteLocations')) || [];
-        setRecentSearches(storedSearches);
-        setFavoriteLocations(storedFavorites);
-        getCurrentLocation();
+        setRecentSearches(storedSearches); // Set recent searches from localStorage
+        setFavoriteLocations(storedFavorites); // Set favorite locations from localStorage
+        getCurrentLocation(); // Get current location on mount
 
         // Handle clicks outside the sidebar to close it
         const handleClickOutside = (event) => {
             if (showSidebar && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-                setShowSidebar(false);
+                setShowSidebar(false); // Close sidebar if clicked outside
             }
         };
 
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside); // Add event listener for clicks
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside); // Cleanup event listener on unmount
         };
     }, [showSidebar]);
 
-    const sidebarRef = useRef();
+    const sidebarRef = useRef(); // Reference for the sidebar
 
     // Get current location using Geolocation API
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    const { latitude, longitude } = position.coords;
-                    fetchWeatherByCoordinates(latitude, longitude);
+                    const { latitude, longitude } = position.coords; // Get latitude and longitude
+                    fetchWeatherByCoordinates(latitude, longitude); // Fetch weather data by coordinates
                 },
                 () => {
-                    setErrorMessage(translations[selectedLanguage].networkError);
+                    setErrorMessage(translations[selectedLanguage].networkError); // Set error message if geolocation fails
                 }
             );
         } else {
-            setErrorMessage(translations[selectedLanguage].networkError);
+            setErrorMessage(translations[selectedLanguage].networkError); // Set error message if geolocation is not supported
         }
     };
 
     // Fetch weather data based on coordinates
     const fetchWeatherByCoordinates = async (lat, lon) => {
-        setIsLoading(true);
-        setErrorMessage('');
+        setIsLoading(true); // Set loading state
+        setErrorMessage(''); // Clear previous error messages
         try {
             const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=${selectedLanguage}&appid=${import.meta.env.VITE_APP_ID}`;
-            const weatherResponse = await fetch(weatherUrl);
+            const weatherResponse = await fetch(weatherUrl); // Fetch weather data
 
             // Check if the response is ok
             if (!weatherResponse.ok) {
                 const errorData = await weatherResponse.json();
-                const message = errorData.message || translations[selectedLanguage].errorMessage;
-                setErrorMessage(`Error: ${message}`);
+                const message = errorData.message || translations[selectedLanguage].errorMessage; // Get error message
+                setErrorMessage(`Error: ${message}`); // Set error message
                 return;
             }
 
-            const weatherData = await weatherResponse.json();
-            const iconCode = weatherData.weather[0].icon;
-            const weatherCondition = weatherData.weather[0].main.toLowerCase(); 
+            const weatherData = await weatherResponse.json(); // Parse weather data
+            const iconCode = weatherData.weather.icon; // Get weather icon code
+            const weatherCondition = weatherData.weather.main.toLowerCase(); // Get weather condition
 
-            setBackgroundImage(getBackgroundImage(weatherCondition));
+            setBackgroundImage(getBackgroundImage(weatherCondition)); // Set background image based on weather condition
 
             // Set weather data to state
             setWeatherData({
@@ -391,60 +394,60 @@ const Weather = () => {
                 windSpeed: weatherData.wind.speed,
                 temperature: Math.floor(weatherData.main.temp),
                 location: weatherData.name,
-                icon: allIcons[iconCode] || sun_icon,
+                icon: allIcons[iconCode] || sun_icon, // Get corresponding icon
                 iconCode: iconCode
             });
 
-            await fetchForecastData(lat, lon);
+            await fetchForecastData(lat, lon); // Fetch forecast data
         } catch (error) {
-            setErrorMessage(translations[selectedLanguage].networkError);
-            console.error("Error in fetching weather data", error);
+            setErrorMessage(translations[selectedLanguage].networkError); // Set error message on fetch error
+            console.error("Error in fetching weather data", error); // Log error
         } finally {
-            setIsLoading(false);
+            setIsLoading(false); // Reset loading state
         }
     };
 
     // Fetch forecast data for the location
     const fetchForecastData = async (lat, lon) => {
         const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_APP_ID}&units=metric&lang=${selectedLanguage}`;
-        const forecastResponse = await fetch(forecastUrl);
+        const forecastResponse = await fetch(forecastUrl); // Fetch forecast data
 
         // Check if the response is ok
         if (!forecastResponse.ok) {
             const errorData = await forecastResponse.json();
-            const message = errorData.message || translations[selectedLanguage].errorMessage;
-            setErrorMessage(`Error: ${message}`);
+            const message = errorData.message || translations[selectedLanguage].errorMessage; // Get error message
+            setErrorMessage(`Error: ${message}`); // Set error message
             return;
         }
 
-        const forecastData = await forecastResponse.json();
-        setForecastData(forecastData.list);
-        setIsFavorite(favoriteLocations.includes(weatherData.location));
-        setErrorMessage('');
+        const forecastData = await forecastResponse.json(); // Parse forecast data
+        setForecastData(forecastData.list); // Set forecast data to state
+        setIsFavorite(favoriteLocations.includes(weatherData.location)); // Check if current location is favorite
+        setErrorMessage(''); // Clear error messages
     };
 
     // Fetch weather data based on city name
     const fetchWeatherData = async (city) => {
         if (!city) return; // No city provided, exit early
-        setIsLoading(true);
-        setErrorMessage('');
+        setIsLoading(true); // Set loading state
+        setErrorMessage(''); // Clear previous error messages
         try {
             const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=${selectedLanguage}&appid=${import.meta.env.VITE_APP_ID}`;
-            const weatherResponse = await fetch(weatherUrl);
+            const weatherResponse = await fetch(weatherUrl); // Fetch weather data
 
             // Check if the response is ok
             if (!weatherResponse.ok) {
                 const errorData = await weatherResponse.json();
-                const message = errorData.message || translations[selectedLanguage].errorMessage;
-                setErrorMessage(`Error: ${message}`);
+                const message = errorData.message || translations[selectedLanguage].errorMessage; // Get error message
+                setErrorMessage(`Error: ${message}`); // Set error message
                 return;
             }
 
-            const weatherData = await weatherResponse.json();
-            const iconCode = weatherData.weather[0].icon;
-            const weatherCondition = weatherData.weather[0].main.toLowerCase(); 
+            const weatherData = await weatherResponse.json(); // Parse weather data
+            const iconCode = weatherData.weather.icon; // Get weather icon code
+            const weatherCondition = weatherData.weather.main.toLowerCase(); // Get weather condition
 
-            setBackgroundImage(getBackgroundImage(weatherCondition));
+            setBackgroundImage(getBackgroundImage(weatherCondition)); // Set background image based on weather condition
 
             // Set weather data to state
             setWeatherData({
@@ -452,97 +455,97 @@ const Weather = () => {
                 windSpeed: weatherData.wind.speed,
                 temperature: Math.floor(weatherData.main.temp),
                 location: weatherData.name,
-                icon: allIcons[iconCode] || sun_icon,
+                icon: allIcons[iconCode] || sun_icon, // Get corresponding icon
                 iconCode: iconCode
             });
 
-            await fetchForecastDataByCity(city);
+            await fetchForecastDataByCity(city); // Fetch forecast data by city
         } catch (error) {
-            console.error("Network error occurred", error);
-            setErrorMessage(translations[selectedLanguage].networkError);
+            console.error("Network error occurred", error); // Log error
+            setErrorMessage(translations[selectedLanguage].networkError); // Set error message
         } finally {
-            setIsLoading(false);
+            setIsLoading(false); // Reset loading state
         }
     };
 
     // Fetch forecast data based on city name
     const fetchForecastDataByCity = async (city) => {
         const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${import.meta.env.VITE_APP_ID}&units=metric&lang=${selectedLanguage}`;
-        const forecastResponse = await fetch(forecastUrl);
+        const forecastResponse = await fetch(forecastUrl); // Fetch forecast data
 
         // Check if the response is ok
         if (!forecastResponse.ok) {
             const errorData = await forecastResponse.json();
-            const message = errorData.message || translations[selectedLanguage].errorMessage;
-            setErrorMessage(`Error: ${message}`);
+            const message = errorData.message || translations[selectedLanguage].errorMessage; // Get error message
+            setErrorMessage(`Error: ${message}`); // Set error message
             return;
         }
 
-        const forecastData = await forecastResponse.json();
-        setForecastData(forecastData.list);
-        setIsFavorite(favoriteLocations.includes(weatherData.name));
-        setErrorMessage('');
+        const forecastData = await forecastResponse.json(); // Parse forecast data
+        setForecastData(forecastData.list); // Set forecast data to state
+        setIsFavorite(favoriteLocations.includes(weatherData.name)); // Check if current location is favorite
+        setErrorMessage(''); // Clear error messages
     };
 
     // Handle search action
     const search = async (city) => {
         if (city === "") {
-            alert(translations[selectedLanguage].searchPlaceholder);
+            alert(translations[selectedLanguage].searchPlaceholder); // Alert if no city is provided
             return;
         }
-        await fetchWeatherData(city);
+        await fetchWeatherData(city); // Fetch weather data for the city
 
         // Update recent searches in state and localStorage
         const updatedSearches = [city, ...recentSearches.filter(search => search !== city)];
-        setRecentSearches(updatedSearches);
-        localStorage.setItem('recentSearches', JSON.stringify(updatedSearches));
+        setRecentSearches(updatedSearches); // Update recent searches state
+        localStorage.setItem('recentSearches', JSON.stringify(updatedSearches)); // Save to localStorage
     };
 
     // Save a location as favorite
     const saveFavoriteLocation = (location) => {
         // Use a Set to ensure unique favorites
         const updatedFavorites = [...new Set([...favoriteLocations, location])];
-        setFavoriteLocations(updatedFavorites);
-        localStorage.setItem('favoriteLocations', JSON.stringify(updatedFavorites));
-        setIsFavorite(true);
+        setFavoriteLocations(updatedFavorites); // Update favorite locations state
+        localStorage.setItem('favoriteLocations', JSON.stringify(updatedFavorites)); // Save to localStorage
+        setIsFavorite(true); // Set favorite status
     };
 
     // Remove a location from favorites
     const removeFavoriteLocation = (location) => {
-        const updatedFavorites = favoriteLocations.filter(fav => fav !== location);
-        setFavoriteLocations(updatedFavorites);
-        localStorage.setItem('favoriteLocations', JSON.stringify(updatedFavorites));
-        setIsFavorite(false);
+        const updatedFavorites = favoriteLocations.filter(fav => fav !== location); // Filter out the location
+        setFavoriteLocations(updatedFavorites); // Update favorite locations state
+        localStorage.setItem('favoriteLocations', JSON.stringify(updatedFavorites)); // Save to localStorage
+        setIsFavorite(false); // Reset favorite status
     };
 
     const toggleSidebar = () => {
-        setShowSidebar(prevState => !prevState);
+        setShowSidebar(prevState => !prevState); // Toggle sidebar visibility
     };
 
     const toggleForecast = () => {
-        setShowForecast(prev => !prev);
+        setShowForecast(prev => !prev); // Toggle forecast visibility
         if (weatherData) {
             // Change text color based on temperature
             if (weatherData.temperature > 30) {
-                setForecastTextColor('red');
+                setForecastTextColor('red'); // Set text color to red for high temperatures
             } else if (weatherData.temperature < 10) {
-                setForecastTextColor('blue');
+                setForecastTextColor('blue'); // Set text color to blue for low temperatures
             } else {
-                setForecastTextColor('green');
+                setForecastTextColor('green'); // Set text color to green for moderate temperatures
             }
         }
     };
 
     const handleRefresh = () => {
         if (weatherData) {
-            fetchWeatherData(weatherData.location);
+            fetchWeatherData(weatherData.location); // Refresh weather data for current location
         }
     };
 
     const handleLanguageChange = (event) => {
-        setSelectedLanguage(event.target.value);
+        setSelectedLanguage(event.target.value); // Update selected language
         if (weatherData) {
-            fetchWeatherData(weatherData.location);
+            fetchWeatherData(weatherData.location); // Fetch weather data for current location in new language
         }
     };
 
@@ -550,15 +553,15 @@ const Weather = () => {
     const getBackgroundImage = (condition) => {
         switch (condition) {
             case 'clear':
-                return clearBackground;
+                return clearBackground; // Return clear background for clear weather
             case 'clouds':
-                return cloudyBackground;
+                return cloudyBackground; // Return cloudy background for cloudy weather
             case 'rain':
-                return rainyBackground;
+                return rainyBackground; // Return rainy background for rainy weather
             case 'snow':
-                return snowyBackground;
+                return snowyBackground; // Return snowy background for snowy weather
             default:
-                return defaultBackground; 
+                return defaultBackground; // Return default background for other conditions
         }
     };
 
@@ -567,7 +570,7 @@ const Weather = () => {
             className='weather' 
             style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
-            {isLoading && <div className="loading" aria-live="polite"></div>}
+            {isLoading && <div className="loading" aria-live="polite"></div>} {/* Loading indicator */}
             <img 
                 src={sidebar_icon} 
                 alt="Toggle Sidebar" 
@@ -578,101 +581,100 @@ const Weather = () => {
             />
             
             {showSidebar && <div className="overlay" onClick={() => setShowSidebar(false)} aria-label="Close Sidebar"></div>}
-            
             {showSidebar && (
+    <div 
+        className={`sidebar open`} 
+        ref={sidebarRef} 
+        style={{ 
+            background: `url(${sidebarBackground}) no-repeat center center`, 
+            backgroundSize: 'cover', 
+            opacity: '0.9'
+        }}
+        aria-label="Sidebar with recent searches and favorite locations"
+    >
+        <h3>{translations[selectedLanguage].recentSearches}</h3>
+        <div className="recent-searches">
+            {recentSearches.map((search, index) => (
                 <div 
-                    className={`sidebar open`} 
-                    ref={sidebarRef} 
-                    style={{ 
-                        background: `url(${sidebarBackground}) no-repeat center center`, 
-                        backgroundSize: 'cover', 
-                        opacity: '0.9'
-                    }}
-                    aria-label="Sidebar with recent searches and favorite locations"
+                    key={index} 
+                    onClick={() => { 
+                        inputRef.current.value = search; // Set the input value to the clicked recent search
+                        search(search); // Perform search for the clicked recent search
+                        setShowSidebar(false); // Close the sidebar after selection
+                    }} 
+                    className="recent-search"
+                    role="button"
+                    aria-label={`Search for ${search}`} // Accessibility label for screen readers
                 >
-                    <h3>{translations[selectedLanguage].recentSearches}</h3>
-                    <div className="recent-searches">
-                        {recentSearches.map((search, index) => (
-                            <div 
-                                key={index} 
-                                onClick={() => { 
-                                    inputRef.current.value = search; 
-                                    search(search); 
-                                    setShowSidebar(false); 
-                                }} 
-                                className="recent-search"
-                                role="button"
-                                aria-label={`Search for ${search}`}
-                            >
-                                {search}
-                            </div>
-                        ))}
-                    </div>
-                    <h3>{translations[selectedLanguage].favoriteLocations}</h3>
-                    <div className="favorite-locations">
-                        {favoriteLocations.map((location, index) => (
-                            <div key={index} className="favorite-location">
-                                {location}
-                                <button 
-                                    onClick={() => { 
-                                        removeFavoriteLocation(location); 
-                                        setShowSidebar(false); 
-                                    }} 
-                                    aria-label={`Remove ${location} from favorites`}
-                                >
-                                    {translations[selectedLanguage].saveAsFavorite}
-                                </button>
-                            </div>
-                        ))}
-                    </div>
+                    {search} {/* Display the recent search */}
                 </div>
-            )}
+            ))}
+        </div>
+        <h3>{translations[selectedLanguage].favoriteLocations}</h3>
+        <div className="favorite-locations">
+            {favoriteLocations.map((location, index) => (
+                <div key={index} className="favorite-location">
+                    {location} {/* Display the favorite location */}
+                    <button 
+                        onClick={() => { 
+                            removeFavoriteLocation(location); // Remove location from favorites
+                            setShowSidebar(false); // Close the sidebar after removal
+                        }} 
+                        aria-label={`Remove ${location} from favorites`} // Accessibility label for screen readers
+                    >
+                        {translations[selectedLanguage].saveAsFavorite} {/* Button text for saving as favorite */}
+                    </button>
+                </div>
+            ))}
+        </div>
+    </div>
+)}
 
-            <SearchBar 
-                search={search} 
-                inputRef={inputRef} 
-                handleLanguageChange={handleLanguageChange} 
-                selectedLanguage={selectedLanguage} 
-                supportedLanguages={supportedLanguages} 
-            />
-            <ErrorMessage errorMessage={errorMessage} />
-            {weatherData && (
-                <WeatherCard 
-                    weatherData={weatherData} 
-                    isFavorite={isFavorite} 
-                    toggleFavorite={() => isFavorite ? removeFavoriteLocation(weatherData.location) : saveFavoriteLocation(weatherData.location)} 
-                    handleRefresh={handleRefresh} 
-                    translations={translations} 
-                    selectedLanguage={selectedLanguage} 
-                />
-            )}
-           {showForecast && (
-    <div className="forecast" style={{ color: forecastTextColor }}>
+<SearchBar 
+    search={search} // Function to perform search
+    inputRef={inputRef} // Reference to the search input
+    handleLanguageChange={handleLanguageChange} // Function to handle language change
+    selectedLanguage={selectedLanguage} // Currently selected language
+    supportedLanguages={supportedLanguages} // Object containing supported languages
+/>
+<ErrorMessage errorMessage={errorMessage} /> {/* Display error message if any */}
+{weatherData && (
+    <WeatherCard 
+        weatherData={weatherData} // Weather data to display
+        isFavorite={isFavorite} // Boolean indicating if the location is a favorite
+        toggleFavorite={() => isFavorite ? removeFavoriteLocation(weatherData.location) : saveFavoriteLocation(weatherData.location)} // Toggle favorite status
+        handleRefresh={handleRefresh} // Function to refresh weather data
+        translations={translations} // Object containing translations for different languages
+        selectedLanguage={selectedLanguage} // Currently selected language
+    />
+)}
+{showForecast && (
+    <div className="forecast" style={{ color: forecastTextColor }}> {/* Display forecast data with dynamic text color */}
         {forecastData.map((item, index) => (
             <div key={index} className="forecast-item">
                 <img 
-                    src={allIcons[item.weather[0].icon] || sun_icon} 
+                    src={allIcons[item.weather.icon] || sun_icon} // Display corresponding weather icon
                     alt="Forecast Icon" 
                 />
                 <p className="date">
-                    {new Date(item.dt * 1000).toLocaleDateString()}
+                    {new Date(item.dt * 1000).toLocaleDateString()} {/* Format and display the date */}
                 </p>
                 <p className="time">
-                    {new Date(item.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    {new Date(item.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} {/* Format and display the time */}
                 </p>
-                <p>{Math.floor(item.main.temp)}°C</p>
+                <p>{Math.floor(item.main.temp)}°C</p> {/* Display the temperature */}
             </div>
         ))}
     </div>
 )}
-            <button 
-                className="toggle-forecast" 
-                onClick={toggleForecast} 
-                aria-label={showForecast ? translations[selectedLanguage].hideForecast : translations[selectedLanguage].showForecast}
-            >
-                {showForecast ? translations[selectedLanguage].hideForecast : translations[selectedLanguage].showForecast}
-            </button>
-        </div>
+<button 
+    className="toggle-forecast" 
+    onClick={toggleForecast} // Toggle forecast visibility
+    aria-label={showForecast ? translations[selectedLanguage].hideForecast : translations[selectedLanguage].showForecast} // Accessibility label for button
+>
+    {showForecast ? translations[selectedLanguage].hideForecast : translations[selectedLanguage].showForecast} {/* Button text based on forecast visibility */}
+</button>
+</div>
     );
 };
 
