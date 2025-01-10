@@ -38,10 +38,11 @@ body {
     width: 250px;
     height: 100%;
     max-height: 100vh; /* Limit the height to the viewport height */
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: #f0f4ff; /* Light background color */
     transition: left 0.3s ease;
     padding: 20px;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    border-radius: 10px; /* Optional: Rounded corners */
     z-index: 1000;
     overflow-y: auto; /* Enable vertical scrolling */
 }
@@ -54,9 +55,11 @@ body {
     position: absolute; /* Position the icon absolutely */
     top: 20px; /* Distance from the top */
     left: 20px; /* Distance from the left */
-    width: 35px;
+    width: 30px;
     height: 30px;
-    background: #D3D3D3;
+    background:  #e1e1e1;;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    border-radius: 50px; /* Optional: Rounded corners */
     cursor: pointer;
     transition: transform 0.2s;
 }
